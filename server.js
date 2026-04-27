@@ -3,10 +3,15 @@ const path = require("path");
 
 const app = express();
 
-// servir frontend
+// servir archivos estáticos
 app.use(express.static(path.join(__dirname, "public")));
 
-// fallback
+// cuando alguien entra a /
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// fallback para rutas
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
