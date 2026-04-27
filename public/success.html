@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Compra completada</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(139,92,246,0.2), transparent),
+    radial-gradient(circle at 80% 80%, rgba(85,231,255,0.15), transparent),
+    #05060a;
+  color:white;
+  font-family:Inter, Arial;
+}
+
+.box{
+  width:520px;
+  max-width:90%;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:28px;
+  padding:35px;
+  box-shadow:0 30px 100px rgba(0,0,0,0.5);
+  position:relative;
+  overflow:hidden;
+}
+
+/* glow top */
+.box::before{
+  content:"";
+  position:absolute;
+  top:-40px;
+  left:50%;
+  transform:translateX(-50%);
+  width:200px;
+  height:200px;
+  background:radial-gradient(circle, rgba(85,231,255,0.4), transparent);
+  filter:blur(60px);
+}
+
+/* título */
+h1{
+  margin:0;
+  font-size:32px;
+  background:linear-gradient(90deg,#55e7ff,#c084fc);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+/* order id */
+.order{
+  margin-top:20px;
+  background:rgba(85,231,255,0.1);
+  padding:12px;
+  border-radius:14px;
+  font-weight:900;
+  text-align:center;
+  letter-spacing:1px;
+}
+
+/* receipt */
+.receipt{
+  margin-top:20px;
+  line-height:1.8;
+  color:#dbe7ff;
+  font-size:14px;
+}
+
+/* items */
+.item{
+  display:flex;
+  justify-content:space-between;
+}
+
+/* total */
+.total{
+  margin-top:15px;
+  font-size:18px;
+  font-weight:900;
+  color:#55e7ff;
+}
+
+/* botón discord */
+.discord{
+  margin-top:25px;
+  display:block;
+  text-align:center;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(90deg,#8b5cf6,#c084fc);
+  color:white;
+  text-decoration:none;
+  font-weight:900;
+  transition:0.2s;
+}
+
+.discord:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(139,92,246,0.4);
+}
+
+/* flechas */
+.chevrons{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.chevrons i{
+  width:18px;
+  height:22px;
+  background:#8b5cf6;
+  clip-path:polygon(0 0,100% 50%,0 100%,30% 50%);
+  margin-left:-6px;
+  filter:drop-shadow(0 0 10px #8b5cf6);
+  animation:glow 1.4s infinite;
+}
+
+.chevrons i:nth-child(2){animation-delay:0.1s}
+.chevrons i:nth-child(3){animation-delay:0.2s}
+.chevrons i:nth-child(4){animation-delay:0.3s}
+
+@keyframes glow{
+  0%{opacity:0.3}
+  50%{opacity:1}
+  100%{opacity:0.3}
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>COMPRA COMPLETADA ✅</h1>
+
+<div class="chevrons">
+<i></i><i></i><i></i><i></i>
+</div>
+
+<div class="order" id="orderCode"></div>
+
+<div class="receipt" id="receipt"></div>
+
+<a href="https://discord.gg/p8RAYMyXgJ" target="_blank" class="discord">
+Abrir Ticket en Discord
+</a>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const code = params.get("order");
+
+document.getElementById("orderCode").innerText = "ORDER ID: " + code;
+
+fetch("/api/order/" + code)
+.then(res => res.json())
+.then(order => {
+
+let html = `
+<b>Cliente:</b> ${order.payer}<br>
+<b>Día:</b> ${order.date}<br>
+<b>Hora:</b> ${order.hour}<br><br>
+<b>Cosas compradas:</b><br>
+`;
+
+order.items.forEach(i=>{
+  html += `<div class="item">
+    <span>${i.name} x${i.qty}</span>
+    <span>€${i.price}</span>
+  </div>`;
+});
+
+html += `<div class="total">Total: €${order.total}</div>`;
+
+document.getElementById("receipt").innerHTML = html;
+
+});
+</script>
+
+</body>
+</html>
