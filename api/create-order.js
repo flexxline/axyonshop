@@ -52,7 +52,7 @@ module.exports = async (req, res) => {
             },
             items: order.items.map((item) => ({
               name: item.name.slice(0, 127),
-              sku: item.id.slice(0, 127),
+              sku: `${item.id}:${item.variantId || "default"}`.slice(0, 127),
               quantity: String(item.qty),
               unit_amount: {
                 currency_code: order.currency,

@@ -438,6 +438,11 @@ h1 .gradient{
 .product-bottom{position:relative;z-index:1;margin-top:20px;display:flex;justify-content:space-between;align-items:end;gap:14px}
 .price{font-size:24px;font-weight:950;letter-spacing:-.8px}
 .stock{color:var(--green);font-size:12px;font-weight:950;text-align:right}
+.variant-select{position:relative;z-index:1;width:100%;margin-top:14px;border:1px solid var(--line);background:rgba(255,255,255,.065);color:#fff;border-radius:16px;padding:12px;outline:0;font-size:12px;font-weight:850}
+.variant-select:focus{border-color:rgba(85,231,255,.42);box-shadow:0 0 0 4px rgba(85,231,255,.07)}
+.variant-select option{background:#090b1c}
+.variant-label{display:block;margin-top:16px;margin-bottom:8px;color:var(--muted);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.9px}
+.variant-select-modal{margin-top:0;margin-bottom:2px}
 .product-actions{position:relative;z-index:1;display:grid;grid-template-columns:1fr 46px;gap:10px;margin-top:16px}
 .add{border:0;color:#02030a;background:linear-gradient(90deg,var(--blue),#cff8ff);padding:13px 14px;border-radius:17px;font-weight:950;box-shadow:0 16px 42px rgba(85,231,255,.16);transition:.2s ease}
 .add:hover{transform:translateY(-2px)}
@@ -455,6 +460,7 @@ h1 .gradient{
 .empty-cart{color:var(--muted);border:1px dashed var(--line);border-radius:22px;padding:18px;line-height:1.6;font-size:14px}
 .cart-item{border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:22px;padding:13px}
 .cart-item strong{display:block;font-size:13px;line-height:1.35;margin-bottom:10px}
+.cart-variant{color:var(--muted);font-size:12px;font-weight:800;line-height:1.35;margin-top:-6px;margin-bottom:10px}
 .cart-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--soft);font-size:13px}
 .qty{display:flex;align-items:center;gap:6px}
 .qty button,.remove-btn{border:1px solid var(--line);background:rgba(255,255,255,.07);color:#fff;border-radius:10px;min-width:28px;height:28px;font-weight:900}

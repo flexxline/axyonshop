@@ -111,7 +111,7 @@ function fingerprintCart(order) {
       JSON.stringify({
         currency: order.currency,
         totalCents: order.totalCents,
-        items: order.items.map((item) => [item.id, item.qty, item.unitCents])
+        items: order.items.map((item) => [item.id, item.variantId || "default", item.qty, item.unitCents])
       })
     )
     .digest("hex");
@@ -157,7 +157,9 @@ function assessRisk({ req, ip, order }) {
 function publicOrderItems(order) {
   return order.items.map((item) => ({
     id: item.id,
+    variantId: item.variantId || "default",
     name: item.name,
+    variantName: item.variantName || "",
     qty: item.qty,
     price: (item.unitCents / 100).toFixed(2),
     total: (item.lineCents / 100).toFixed(2)

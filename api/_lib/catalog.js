@@ -35,6 +35,21 @@ function formatMoney(cents) {
   return (cents / 100).toFixed(2);
 }
 
+function productVariants(product) {
+  return Array.isArray(product.variants) && product.variants.length
+    ? product.variants
+    : [{ id: "default", name: "Default", price: product.price, stock: product.stock }];
+}
+
+function getVariant(product, variantId) {
+  const variants = productVariants(product);
+  return variants.find((variant) => variant.id === variantId) || variants[0];
+}
+
+function lineKey(productId, variantId) {
+  return `${productId}::${variantId || "default"}`;
+}
+
 function normalizeCart(items) {
   if (!Array.isArray(items) || items.length === 0) {
     throw Object.assign(new Error("Cart is empty"), { statusCode: 400 });
@@ -49,6 +64,7 @@ function normalizeCart(items) {
 
   for (const rawItem of items) {
     const id = String(rawItem?.id || "").trim();
+    const variantId = String(rawItem?.variantId || "default").trim();
     const product = catalog.get(id);
     const qty = Number(rawItem?.qty);
 
@@ -60,20 +76,34 @@ function normalizeCart(items) {
       throw Object.assign(new Error("Invalid product quantity"), { statusCode: 400 });
     }
 
-    if (product.stock <= 0 || qty > product.stock) {
+    const variant = getVariant(product, variantId);
+    const stock = Number.isFinite(Number(variant.stock)) ? Number(variant.stock) : Number(product.stock);
+
+    if (stock <= 0 || qty > stock) {
       throw Object.assign(new Error(`${product.name} is out of stock`), { statusCode: 409 });
     }
 
-    const existing = compact.get(id);
-    compact.set(id, existing ? existing + qty : qty);
+    const key = lineKey(id, variant.id);
+    const existing = compact.get(key);
+    const nextQty = existing ? existing + qty : qty;
+    if (nextQty > stock) {
+      throw Object.assign(new Error(`${product.name} is out of stock`), { statusCode: 409 });
+    }
+    compact.set(key, nextQty);
   }
 
-  const lines = Array.from(compact.entries()).map(([id, qty]) => {
+  const lines = Array.from(compact.entries()).map(([key, qty]) => {
+    const [id, variantId] = key.split("::");
     const product = catalog.get(id);
-    const unitCents = toCents(product.price);
+    const variant = getVariant(product, variantId);
+    const unitCents = toCents(variant.price);
+    const hasNamedVariant = variant.name && variant.name !== "Default";
     return {
       id,
-      name: product.name,
+      variantId: variant.id,
+      name: hasNamedVariant ? `${product.name} - ${variant.name}` : product.name,
+      productName: product.name,
+      variantName: hasNamedVariant ? variant.name : "",
       category: product.category,
       qty,
       unitCents,
