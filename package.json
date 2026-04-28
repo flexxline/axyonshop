@@ -1,11 +1,10 @@
 {
-  "main": "server.js",
+  "name": "axyon-store",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "start": "node server/server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "dotenv": "^16.4.5",
-    "cors": "^2.8.5"
+    "check": "node --check api/create-order.js && node --check api/capture-order.js && node --check api/paypal-webhook.js && node --check public/js/app.js",
+    "dev": "npx --yes vercel dev",
+    "deploy": "npx --yes vercel deploy --prod"
   }
 }

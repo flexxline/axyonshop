@@ -26,6 +26,11 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+.lenis.lenis-smooth iframe{pointer-events:none}
 body{
   min-height:100vh;
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -64,7 +69,7 @@ button{cursor:pointer}
     radial-gradient(circle at 22% 18%,rgba(85,231,255,.17),transparent 24%),
     radial-gradient(circle at 72% 26%,rgba(139,92,246,.22),transparent 24%),
     radial-gradient(circle at 44% 66%,rgba(236,92,255,.12),transparent 26%);
-  filter:blur(44px);
+  filter:blur(36px);
   animation:auroraMove 12s ease-in-out infinite alternate;
 }
 @keyframes auroraMove{
@@ -225,6 +230,7 @@ button{cursor:pointer}
   background:rgba(255,255,255,.8);
   opacity:.5;
   animation:floatDot linear infinite;
+  will-change:transform,opacity;
 }
 @keyframes floatDot{
   from{transform:translate3d(0,0,0)}
@@ -404,9 +410,29 @@ h1 .gradient{
 .product-top{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .tag{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(85,231,255,.22);background:rgba(85,231,255,.075);color:#dffbff;padding:8px 10px;border-radius:999px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.7px}
 .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue)}
-.mini-arrows{display:flex;gap:3px;opacity:.9}
-.mini-arrows i{width:8px;height:8px;border-top:2px solid var(--purple-2);border-right:2px solid var(--purple-2);transform:rotate(45deg);animation:miniChev 1.05s infinite}
-.mini-arrows i:nth-child(2){animation-delay:.1s}.mini-arrows i:nth-child(3){animation-delay:.2s}.mini-arrows i:nth-child(4){animation-delay:.3s}@keyframes miniChev{0%,100%{opacity:.25}50%{opacity:1;transform:translateX(3px) rotate(45deg)}}
+.mini-arrows{display:flex;gap:4px;opacity:.9}
+.mini-arrows i{
+  width:7px;
+  height:10px;
+  background:rgba(220,228,240,.82);
+  clip-path:polygon(0 0,62% 0,100% 50%,62% 100%,0 100%,24% 50%);
+  transform:none;
+  filter:drop-shadow(0 0 0 rgba(220,228,240,0));
+  animation:miniChevGlow 1.05s infinite;
+}
+.mini-arrows i:nth-child(2){animation-delay:.1s}
+.mini-arrows i:nth-child(3){animation-delay:.2s}
+.mini-arrows i:nth-child(4){animation-delay:.3s}
+@keyframes miniChevGlow{
+  0%,100%{
+    opacity:.28;
+    filter:drop-shadow(0 0 0 rgba(220,228,240,0));
+  }
+  50%{
+    opacity:.95;
+    filter:drop-shadow(0 0 4px rgba(220,228,240,.32));
+  }
+}
 .product h3{position:relative;z-index:1;margin-top:20px;font-size:18px;line-height:1.24;letter-spacing:-.35px}
 .product p{position:relative;z-index:1;margin-top:10px;color:var(--muted);font-size:13px;line-height:1.6;min-height:62px}
 .product-bottom{position:relative;z-index:1;margin-top:20px;display:flex;justify-content:space-between;align-items:end;gap:14px}
@@ -476,4 +502,21 @@ h1 .gradient{
   .brand-text span{display:none}
   .nav-actions .pill-button{padding:10px 12px;font-size:13px}
   .products-grid{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .aurora,
+  .dot,
+  .chevron,
+  .mini-arrows i,
+  .toast-item{
+    animation:none!important;
+  }
+  .product,
+  .pill-button,
+  .main-button,
+  .ghost-button,
+  .checkout-btn{
+    transition:none!important;
+  }
 }
