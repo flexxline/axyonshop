@@ -29,7 +29,7 @@ const products = [
     "id": "rockstar-tool",
     "name": "Rockstar Tool",
     "category": "Tools",
-    "price": 18,
+    "price": 18.75,
     "popular": 90,
     "stock": 0,
     "desc": "Premium Rockstar gaming tool."
@@ -61,7 +61,7 @@ const products = [
       {
         "id": "lifetime",
         "name": "Lifetime",
-        "price": 23.88
+        "price": 24.88
       }
     ]
   },
@@ -82,7 +82,7 @@ const products = [
       {
         "id": "1100-4000-hours",
         "name": "1100-4000 Hrs, medals 6-8",
-        "price": 23.4
+        "price": 24.38
       }
     ]
   },
@@ -147,22 +147,22 @@ const products = [
       {
         "id": "2000-5000vp",
         "name": "EU Level 20-40, 2000VP-5000VP",
-        "price": 12.9
+        "price": 13.44
       },
       {
         "id": "3000-10000vp",
         "name": "EU Level 40-100, 3000VP-10000VP",
-        "price": 18.3
+        "price": 19.06
       },
       {
         "id": "5000-20000vp",
         "name": "EU Level 50-200, 5000VP-20000VP",
-        "price": 27
+        "price": 28.13
       },
       {
         "id": "30000-55000vp",
         "name": "EU Level 100-300, 30000VP-55000VP",
-        "price": 42
+        "price": 43.75
       }
     ]
   },
@@ -217,12 +217,12 @@ const products = [
       {
         "id": "250-400-skins",
         "name": "250-400 Skins OG Included",
-        "price": 15
+        "price": 15.63
       },
       {
         "id": "400-600-skins",
         "name": "400-600 Skins OG Included",
-        "price": 34.2
+        "price": 35.63
       }
     ]
   },
@@ -300,7 +300,7 @@ const products = [
       {
         "id": "lifetime",
         "name": "Lifetime Key",
-        "price": 15
+        "price": 15.63
       }
     ]
   },
@@ -308,7 +308,7 @@ const products = [
     "id": "accounts-generator",
     "name": "Accounts Generator",
     "category": "Tools",
-    "price": 18.6,
+    "price": 19.38,
     "popular": 90,
     "stock": 83,
     "desc": "Bulk accounts generator.",
@@ -316,17 +316,17 @@ const products = [
       {
         "id": "week",
         "name": "Week Gen",
-        "price": 18.6
+        "price": 19.38
       },
       {
         "id": "month",
         "name": "Month Gen",
-        "price": 30
+        "price": 31.25
       },
       {
         "id": "lifetime",
         "name": "Lifetime Gen",
-        "price": 48
+        "price": 50
       }
     ]
   },
@@ -411,12 +411,12 @@ const products = [
       {
         "id": "20000-followers",
         "name": "FA Twitch 20000+ Followers",
-        "price": 23.7
+        "price": 24.69
       },
       {
         "id": "40000-followers",
         "name": "FA Twitch 40000+ Followers",
-        "price": 36
+        "price": 37.5
       }
     ]
   },
@@ -447,17 +447,17 @@ const products = [
       {
         "id": "10000-15000",
         "name": "10,000-15,000 Robux",
-        "price": 12.6
+        "price": 13.13
       },
       {
         "id": "15000-25000",
         "name": "15,000-25,000 Robux",
-        "price": 15.9
+        "price": 16.56
       },
       {
         "id": "25000-50000",
         "name": "25,000-50,000 Robux",
-        "price": 22.2
+        "price": 23.13
       }
     ]
   },
@@ -488,12 +488,12 @@ const products = [
       {
         "id": "7000-10000",
         "name": "7000-10000 Trophies",
-        "price": 12.3
+        "price": 12.81
       },
       {
         "id": "10000-12000",
         "name": "10000-12000 Trophies",
-        "price": 18
+        "price": 18.75
       }
     ]
   },
@@ -554,7 +554,7 @@ const products = [
       {
         "id": "lifetime",
         "name": "Lifetime Key",
-        "price": 13.8
+        "price": 14.38
       }
     ]
   },
@@ -655,7 +655,7 @@ const products = [
     "id": "tiktok-10k-followers",
     "name": "TikTok Accounts 10k+ Followers",
     "category": "Social",
-    "price": 21.3,
+    "price": 22.19,
     "popular": 85,
     "stock": 0,
     "desc": "TikTok accounts with 10k+ followers."
@@ -691,7 +691,7 @@ const products = [
     "id": "tiktok-20k-followers",
     "name": "TikTok Accounts 20k+ Followers",
     "category": "Social",
-    "price": 35.4,
+    "price": 36.88,
     "popular": 90,
     "stock": 0,
     "desc": "TikTok accounts with 20k+ followers."
@@ -709,7 +709,7 @@ const products = [
     "id": "discord-generator",
     "name": "Discord Generator [ LIFETIME ]",
     "category": "Tools",
-    "price": 36,
+    "price": 37.5,
     "popular": 85,
     "stock": 35,
     "desc": "Lifetime Discord accounts generator."
@@ -718,7 +718,7 @@ const products = [
     "id": "chatgpt-plus-generator",
     "name": "ChatGPT+ Generator",
     "category": "Tools",
-    "price": 30,
+    "price": 31.25,
     "popular": 90,
     "stock": 46,
     "desc": "ChatGPT Plus accounts generator."
@@ -727,7 +727,7 @@ const products = [
     "id": "fortnite-accounts-gen",
     "name": "Fortnite Accounts Gen",
     "category": "Tools",
-    "price": 30,
+    "price": 31.25,
     "popular": 85,
     "stock": 23,
     "desc": "Fortnite accounts generator."
@@ -772,7 +772,7 @@ const products = [
     "id": "vpn-generator",
     "name": "VPN Generator [ LIFETIME ]",
     "category": "Tools",
-    "price": 12,
+    "price": 12.5,
     "popular": 80,
     "stock": 35,
     "desc": "Lifetime VPN accounts generator."
@@ -817,7 +817,7 @@ const products = [
     "id": "50-100-level-ranked",
     "name": "50 - 100 Level [ Ranked Ready ]",
     "category": "Gaming",
-    "price": 18.6,
+    "price": 19.38,
     "popular": 80,
     "stock": 54,
     "desc": "High level ranked accounts."
@@ -826,7 +826,7 @@ const products = [
     "id": "ea-fc-26",
     "name": "EA FC 26",
     "category": "Gaming",
-    "price": 14.4,
+    "price": 15,
     "popular": 85,
     "stock": 11,
     "desc": "EA FC 26 accounts."
@@ -835,7 +835,7 @@ const products = [
     "id": "escape-from-tarkov-accounts",
     "name": "Escape From Tarkov Accounts",
     "category": "Gaming",
-    "price": 12.6,
+    "price": 13.13,
     "popular": 80,
     "stock": 25,
     "desc": "Escape From Tarkov Accounts."
@@ -898,7 +898,7 @@ const products = [
     "id": "rockstar-products-supplier",
     "name": "Rockstar & Products Supplier",
     "category": "Services",
-    "price": 24,
+    "price": 25,
     "popular": 85,
     "stock": 10,
     "desc": "Rockstar products supplier service."
@@ -907,7 +907,7 @@ const products = [
     "id": "rockstar-activation-code-method",
     "name": "Rockstar Activation Code Method",
     "category": "Services",
-    "price": 120,
+    "price": 125,
     "popular": 90,
     "stock": 85,
     "desc": "Rockstar activation code method."
@@ -934,7 +934,7 @@ const products = [
     "id": "050-nfa-accounts",
     "name": "0.50$ NFA Accounts",
     "category": "Gaming",
-    "price": 24,
+    "price": 25,
     "popular": 80,
     "stock": 89,
     "desc": "Cheap NFA accounts."
@@ -997,7 +997,7 @@ const products = [
     "id": "free-steam-games",
     "name": "FREE Steam Games",
     "category": "Gaming",
-    "price": 30,
+    "price": 31.25,
     "popular": 85,
     "stock": 23,
     "desc": "Free Steam games access."
@@ -1015,7 +1015,7 @@ const products = [
     "id": "netflix-generator",
     "name": "Netflix Generator",
     "category": "Tools",
-    "price": 12,
+    "price": 12.5,
     "popular": 85,
     "stock": 0,
     "desc": "Netflix accounts generator."
@@ -1024,7 +1024,7 @@ const products = [
     "id": "chatgpt-plus-free-method",
     "name": "ChatGPT+ Free Method",
     "category": "Services",
-    "price": 30,
+    "price": 31.25,
     "popular": 90,
     "stock": 44,
     "desc": "Free ChatGPT Plus method."
