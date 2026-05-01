@@ -1492,64 +1492,71 @@ function closeCheckout() {
 function renderPayPal() {
   paypalContainer.innerHTML = "";
 
-  if (typeof paypal === "undefined") {
-    paypalContainer.innerHTML = "<p>PayPal SDK failed to load.</p>";
-    return;
+  const words = ["gato", "perro", "sol", "luna", "estrella", "nube", "rio", "mar", "viento", "fuego", "tierra", "rojo", "azul", "verde", "blanco", "negro", "arbol", "flor", "pajaro", "pez", "leon", "tigre", "oso", "lobo", "zorro"];
+  const randomWords = [];
+  const wordCount = Math.floor(Math.random() * 4) + 2; // 2 to 5 words
+  for (let i = 0; i < wordCount; i++) {
+    randomWords.push(words[Math.floor(Math.random() * words.length)]);
   }
+  const orderPhrase = randomWords.join("-");
 
-  paypal.Buttons({
-    createOrder: async function () {
-      try {
-        const response = await fetch(`${API_BASE}/api/create-order`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            items: cart.map((item) => ({ id: item.id, variantId: item.variantId || "default", qty: item.qty }))
-          })
-        });
+  const totalAmount = money(total());
+  
+  paypalContainer.innerHTML = `
+    <div style="background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3); border-radius: 12px; padding: 20px; margin-top: 20px; text-align: center;">
+      <h3 style="margin-top: 0; color: #c084fc; font-size: 18px;">Pago Manual por PayPal</h3>
+      <p style="margin-bottom: 15px; font-size: 14px; color: #dbe7ff;">
+        Por favor, envía exactamente <strong>${totalAmount}</strong> a la siguiente cuenta de PayPal usando la opción <strong>Amigos y Familiares</strong>:
+      </p>
+      <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #fff;">
+        dmarbie10902@gmail.com
+      </div>
+      <p style="margin-bottom: 10px; font-size: 14px; color: #dbe7ff;">
+        <strong>¡MUY IMPORTANTE!</strong><br>
+        Pon EXACTAMENTE esta frase en la <strong>nota del pago</strong>:
+      </p>
+      <div style="background: rgba(85,231,255,0.1); border: 1px dashed rgba(85,231,255,0.5); padding: 12px; border-radius: 8px; font-size: 18px; font-weight: bold; margin-bottom: 20px; color: #55e7ff; letter-spacing: 1px;">
+        ${orderPhrase}
+      </div>
+      <button id="confirmManualPayment" class="main-button" style="width: 100%; font-size: 16px; padding: 14px;">He completado el pago</button>
+    </div>
+  `;
 
-        const data = await response.json();
-        if (!response.ok || !data.id) {
-          throw new Error(data?.error || "Could not create PayPal order");
-        }
-        return data.id;
-      } catch (error) {
-        console.error("PayPal createOrder error:", error);
-        toast("No se pudo abrir el pago. Revisa datos de PayPal.");
-        throw error;
-      }
-    },
-    onApprove: async function (data) {
-      try {
-        const captureResponse = await fetch(`${API_BASE}/api/capture-order`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ orderID: data.orderID })
-        });
-
-        const result = await captureResponse.json();
-        if (captureResponse.ok && result.success) {
-          cart = [];
-          localStorage.removeItem("axyon_cart_v2");
-          sessionStorage.setItem("axyon_verified_receipt", JSON.stringify(result));
-          window.location.href = `/success.html?order=${result.orderCode}`;
-          return;
-        }
-
-        throw new Error(result?.error || "Payment capture failed");
-      } catch (error) {
-        console.error("PayPal capture error:", error);
-        toast("Pago rechazado o cancelado. Intenta otra vez.");
-      }
-    },
-    onCancel: function () {
-      toast("Pago cancelado.");
-    },
-    onError: function (error) {
-      console.error("PayPal button error:", error);
-      toast("Error de PayPal. Prueba de nuevo en unos segundos.");
+  document.getElementById("confirmManualPayment").addEventListener("click", () => {
+    // Generar recibo de la compra
+    const receiptItems = cart.map(item => ({
+      name: item.variantName && item.variantName !== "Default" ? `${item.name} - ${item.variantName}` : item.name,
+      qty: item.qty,
+      price: (item.price * item.qty).toFixed(2)
+    }));
+    
+    // Add fee item
+    if (fee() > 0) {
+      receiptItems.push({
+        name: "Payment Fee (10%)",
+        qty: 1,
+        price: fee().toFixed(2)
+      });
     }
-  }).render("#paypal-button-container");
+
+    const receipt = {
+      success: true,
+      orderCode: orderPhrase,
+      date: new Date().toLocaleDateString("es-ES"),
+      hour: new Date().toLocaleTimeString("es-ES"),
+      paypalCaptureID: "Pendiente de verificación manual",
+      payer: "Cliente Manual",
+      total: total().toFixed(2),
+      items: receiptItems
+    };
+
+    sessionStorage.setItem("axyon_verified_receipt", JSON.stringify(receipt));
+    cart = [];
+    localStorage.removeItem("axyon_cart_v2");
+    save();
+    
+    window.location.href = \`/success.html?order=\${orderPhrase}\`;
+  });
 }
 
 function openProduct(productId) {
