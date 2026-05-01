@@ -1124,6 +1124,7 @@ const cartCount = document.getElementById("cartCount");
 const cartBubble = document.getElementById("cartBubble");
 const subtotalEl = document.getElementById("subtotal");
 const discountEl = document.getElementById("discount");
+const feeEl = document.getElementById("fee");
 const totalEl = document.getElementById("total");
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
@@ -1382,8 +1383,13 @@ function discount() {
   return 0;
 }
 
+function fee() {
+  const base = subtotal() - discount();
+  return Math.round(base * 10) / 100;
+}
+
 function total() {
-  return Math.max(0, subtotal() - discount());
+  return Math.max(0, subtotal() - discount() + fee());
 }
 
 function renderCart() {
@@ -1392,6 +1398,7 @@ function renderCart() {
   cartBubble.textContent = itemCount;
   subtotalEl.textContent = money(subtotal());
   discountEl.textContent = "-" + money(discount());
+  feeEl.textContent = "+" + money(fee());
   totalEl.textContent = money(total());
 
   if (cart.length === 0) {
@@ -1462,6 +1469,10 @@ function openCheckout() {
       )
       .join("") +
     `
+        <div class="checkout-line">
+          <span>Payment Fee (10%)</span>
+          <span>+${money(fee())}</span>
+        </div>
         <div class="checkout-line">
           <span><strong>Total</strong></span>
           <span><strong>${money(total())}</strong></span>

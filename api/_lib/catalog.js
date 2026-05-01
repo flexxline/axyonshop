@@ -111,7 +111,24 @@ function normalizeCart(items) {
     };
   });
 
-  const totalCents = lines.reduce((sum, item) => sum + item.lineCents, 0);
+  const subtotalCents = lines.reduce((sum, item) => sum + item.lineCents, 0);
+  const feeCents = Math.round(subtotalCents * 0.10);
+
+  if (feeCents > 0) {
+    lines.push({
+      id: "payment-fee",
+      variantId: "default",
+      name: "Payment Fee (10%)",
+      productName: "Payment Fee (10%)",
+      variantName: "",
+      category: "Fee",
+      qty: 1,
+      unitCents: feeCents,
+      lineCents: feeCents
+    });
+  }
+
+  const totalCents = subtotalCents + feeCents;
 
   if (totalCents < MIN_ORDER_CENTS) {
     throw Object.assign(new Error("Minimum purchase is EUR 3.00"), { statusCode: 400 });
